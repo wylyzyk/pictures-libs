@@ -4,11 +4,7 @@
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo bg-red-900" alt="Vite logo" />
-    </a>
-  </div>
+  <RouterView />
 </template>
 
 <style scoped></style>

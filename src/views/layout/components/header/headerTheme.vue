@@ -26,12 +26,12 @@ const themeArr = [
 </script>
 
 <template>
-  <Popover>
+  <Popover placement="bottom-left">
     <template #reference>
       <SvgIcon
+        fillClass="fill-zinc-900"
         name="theme-light"
         class="w-4 h-4 p-1 cursor-pointer rounded-sm duration-200 outline-none hover:bg-zinc-100/60"
-        fillClass="fill-zinc-900"
       />
     </template>
     <div

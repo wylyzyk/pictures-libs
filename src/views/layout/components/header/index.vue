@@ -16,9 +16,9 @@ const onToHome = () => {
     <div class="flex items-center">
       <img
         class="h-4 cursor-pointer mr-2 rounded-sm"
-        @click="onToHome"
         src="https://avatars.githubusercontent.com/u/49738226?v=4"
         alt="wylyzyk"
+        @click="onToHome"
       />
       <HeaderSearch />
       <HeaderTheme />

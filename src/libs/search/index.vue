@@ -82,10 +82,10 @@ onClickOutside(containerTarget, () => {
       />
       <!-- input -->
       <input
+        v-model="inputValue"
         class="block w-full h-[44px] pl-4 outline-0 bg-zinc-100 caret-zinc-400 rounded-xl text-zinc-900 text-sm tracking-wide font-semibold border border-zinc-100 focus:border-red-300 duration-500 group-hover:bg-white group-hover:border-zinc-200"
         type="text"
         placeholder="请输入关键字"
-        v-model="inputValue"
         @keyup.enter="onSearchHandler"
         @focus="onFocusHandler"
         @blur="onBlurHandler"

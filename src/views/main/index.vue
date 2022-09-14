@@ -4,7 +4,9 @@ import Navigation from "./components/navigation/index.vue";
 </script>
 
 <template>
-  <Navigation />
+  <div>
+    <Navigation />
+  </div>
 </template>
 
 <style lang="scss" scoped></style>

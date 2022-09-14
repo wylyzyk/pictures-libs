@@ -1,14 +1,15 @@
 <script setup>
 import { useScroll } from "@vueuse/core";
 import { onBeforeUpdate, ref, watch } from "vue";
+import Menu from "../../menu/index.vue";
 
 // vite中不需要导入
-defineProps({
-  data: {
-    type: Array,
-    required: true
-  }
-});
+// defineProps({
+//   data: {
+//     type: Array,
+//     required: true
+//   }
+// });
 
 // 滑块样式
 const sliderStyle = ref({
@@ -46,6 +47,12 @@ watch(currentCategoryIndex, (val) => {
 // 点击后获取当前下标
 const onItemClick = (index) => {
   currentCategoryIndex.value = index;
+  isVisible.value = false;
+};
+
+const isVisible = ref(false);
+const onShowPopup = () => {
+  isVisible.value = true;
 };
 </script>
 
@@ -64,11 +71,12 @@ const onItemClick = (index) => {
       <!-- hamburger button -->
       <li
         class="fixed top-0 right-[-1px] h-4 px-1 flex items-center bg-white z-20 shadow-l-white"
+        @click="onShowPopup"
       >
         <SvgIcon class="w-1.5 h-1.5" name="hamburger" />
       </li>
       <li
-        v-for="(item, index) in data"
+        v-for="(item, index) in $store.getters.categorys"
         :key="item.id"
         :ref="setItemRef"
         @click="onItemClick(index)"
@@ -78,5 +86,8 @@ const onItemClick = (index) => {
         {{ item.name }}
       </li>
     </ul>
+    <Popup v-model="isVisible">
+      <Menu @onItemClick="onItemClick" />
+    </Popup>
   </div>
 </template>

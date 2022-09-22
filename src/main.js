@@ -8,6 +8,7 @@ import { useREM } from "./utils/flexible";
 import useTheme from "./utils/theme";
 
 import mLibs from "./libs";
+import mDirectives from "./directives";
 // 注册svgicons
 import "virtual:svg-icons-register";
 
@@ -19,5 +20,6 @@ const app = createApp(App);
 app.use(router);
 app.use(store);
 app.use(mLibs);
+app.use(mDirectives);
 
 app.mount("#app");

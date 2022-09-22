@@ -17,6 +17,7 @@ const onToHome = () => {
   >
     <div class="flex items-center">
       <img
+        v-lazy
         class="h-4 cursor-pointer mr-2 rounded-sm"
         src="https://avatars.githubusercontent.com/u/49738226?v=4"
         alt="wylyzyk"

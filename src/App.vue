@@ -4,7 +4,10 @@
 </script>
 
 <template>
-  <RouterView />
+  <!-- top level router export -->
+  <div class="h-screen w-screen fixed top-0 left-0">
+    <RouterView />
+  </div>
 </template>
 
 <style scoped></style>

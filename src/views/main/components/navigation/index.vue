@@ -10,11 +10,8 @@ store.dispatch("category/useCategoryData");
 </script>
 
 <template>
-  <div>
-    <MobileNavigation v-if="isMobileTerminal" />
-    <PCNavigation v-else />
-    <h2>main</h2>
-  </div>
+  <MobileNavigation v-if="isMobileTerminal" />
+  <PCNavigation v-else />
 </template>
 
 <style lang="scss" scoped></style>

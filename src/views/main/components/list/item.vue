@@ -1,6 +1,7 @@
 <script setup>
 import {} from "vue";
 import Button from "@/libs/Button/index.vue";
+import { randomRGB } from "@/utils/color";
 
 defineProps({
   data: {
@@ -15,7 +16,10 @@ defineProps({
 
 <template>
   <div class="bg-white dark:bg-zinc-900 xl:dark:bg-zinc-800 rounded pb-1">
-    <div class="relative w-full rounded cursor-zoom-in group">
+    <div
+      class="relative w-full rounded cursor-zoom-in group"
+      :style="{ backgroundColor: randomRGB() }"
+    >
       <!-- image -->
       <img
         v-lazy

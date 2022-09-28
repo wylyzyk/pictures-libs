@@ -1,6 +1,7 @@
 <script setup>
 import { useScroll } from "@vueuse/core";
 import { onBeforeUpdate, ref, watch } from "vue";
+import { useStore } from "vuex";
 import Menu from "../../menu/index.vue";
 
 // vite中不需要导入
@@ -17,8 +18,7 @@ const sliderStyle = ref({
   width: "60px"
 });
 
-// 选中的下标
-const currentCategoryIndex = ref(0);
+const store = useStore();
 // 获取所有item
 let itemRefs = [];
 const setItemRef = (el) => {
@@ -36,17 +36,20 @@ onBeforeUpdate(() => {
 const ulTarget = ref(null);
 const { x: ulScrollLeft } = useScroll(ulTarget);
 
-watch(currentCategoryIndex, (val) => {
-  const { left, width } = itemRefs[val].getBoundingClientRect();
-  sliderStyle.value = {
-    transform: `translateX(${ulScrollLeft.value + left - 10}px)`,
-    width: `${width}px`
-  };
-});
+watch(
+  () => store.getters.currentCategoryIndex,
+  (val) => {
+    const { left, width } = itemRefs[val].getBoundingClientRect();
+    sliderStyle.value = {
+      transform: `translateX(${ulScrollLeft.value + left - 10}px)`,
+      width: `${width}px`
+    };
+  }
+);
 
 // 点击后获取当前下标
-const onItemClick = (index) => {
-  currentCategoryIndex.value = index;
+const onItemClick = (item) => {
+  store.commit("app/changeCurrentCategory", item);
   isVisible.value = false;
 };
 
@@ -79,9 +82,11 @@ const onShowPopup = () => {
         v-for="(item, index) in $store.getters.categorys"
         :key="item.id"
         :ref="setItemRef"
-        @click="onItemClick(index)"
+        @click="onItemClick(item)"
         class="shrink-0 px-1.5 py-0.5 z-10 duration-200 last:mr-4"
-        :class="{ 'text-zinc-100': currentCategoryIndex === index }"
+        :class="{
+          'text-zinc-100': $store.getters.currentCategoryIndex === index
+        }"
       >
         {{ item.name }}
       </li>

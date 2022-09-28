@@ -3,6 +3,8 @@ import getters from "./getters";
 
 import category from "./modules/category";
 import theme from "./modules/theme";
+import app from "./modules/app";
+import search from "./modules/search.js";
 
 import createPersistedState from "vuex-persistedstate";
 
@@ -11,13 +13,15 @@ const store = createStore({
   getters,
   modules: {
     category,
-    theme
+    theme,
+    app,
+    search
   },
   plugins: [
     createPersistedState({
       // 指定报存到storage中的key值
       key: "images-photos",
-      paths: ["category"]
+      paths: ["category", "theme", "search"]
     })
   ]
 });

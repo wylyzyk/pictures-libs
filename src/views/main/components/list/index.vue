@@ -1,12 +1,13 @@
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { getPexlesList } from "@/api/pexels";
 import Item from "./item.vue";
 import WaterFall from "@/libs/WaterFall/index.vue";
 import { isMobileTerminal } from "@/utils/flexible.js";
 import Infinite from "@/libs/Infinite/index.vue";
+import { useStore } from "vuex";
 
-const query = {
+let query = {
   page: 1,
   size: 5
 };
@@ -43,6 +44,30 @@ const getPexlesData = async () => {
   // 修改loading, 表示一次请求完毕
   loading.value = false;
 };
+
+/**
+ * 修改query, 重新发起请求
+ */
+const resetQuery = (newQuery) => {
+  query = { ...query, ...newQuery };
+  // 重置状态
+  isFinished.value = false;
+  pexelsList.value = [];
+};
+
+/**
+ * 监听 currentCategory的变化
+ */
+const store = useStore();
+watch(
+  () => store.getters.currentCategory,
+  (currentCategory) => {
+    resetQuery({
+      page: 1,
+      categoryId: currentCategory.id
+    });
+  }
+);
 </script>
 
 <template>

@@ -1,6 +1,5 @@
-import svgIcon from "./svgIcon/index.vue";
-import popup from "./popup/index.vue";
 import { defineAsyncComponent } from "vue";
+export { confirm } from "./Confirm/index.js";
 
 export default {
   install(app) {

@@ -4,6 +4,7 @@ const EMITS_ITEM_CLICK = "itemClick";
 
 <script setup>
 import { useStore } from "vuex";
+import { confirm } from "@/libs";
 
 const emits = defineEmits([EMITS_ITEM_CLICK]);
 
@@ -12,7 +13,14 @@ const store = useStore();
  * 删除全部
  */
 const onDeleteAllClick = () => {
-  store.commit("search/deleteAllHistory");
+  confirm("title", "remove all", "no", "ok")
+    .then(() => {
+      console.log("click ok");
+    })
+    .catch(() => {
+      console.log("click no");
+    });
+  // store.commit("search/deleteAllHistory");
 };
 
 /**

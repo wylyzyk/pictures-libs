@@ -1,6 +1,6 @@
 <script setup>
 import { useIntersectionObserver, useVModel } from "@vueuse/core";
-import { ref, defineEmits, watch } from "vue";
+import { ref, watch } from "vue";
 
 const props = defineProps({
   // 是否处于加载状态

@@ -29,6 +29,7 @@ const sizeEnum = {
 </script>
 <script setup>
 import { computed } from "vue";
+import SvgIcon from "@/libs/SvgIcon/index.vue";
 
 const emits = defineEmits([EMITS_CLICK]);
 

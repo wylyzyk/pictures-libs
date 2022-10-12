@@ -1,4 +1,4 @@
-import ConfirmConponent from "./index.vue";
+import ConfirmComponent from "./index.vue";
 /**
  *
  * @param title 标题
@@ -29,7 +29,7 @@ export const confirm = (title, content, cancelText, confirmText) => {
     };
 
     // 1. 生成 vnode
-    const vnode = h(ConfirmConponent, {
+    const vnode = h(ConfirmComponent, {
       title,
       content,
       cancelText,

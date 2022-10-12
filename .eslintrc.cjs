@@ -36,7 +36,15 @@ module.exports = {
     "vue/multi-word-component-names": [
       "error",
       {
-        ignores: ["index", "main", "floating", "item", "hint", "history"] //需要忽略的组件名
+        ignores: [
+          "theme",
+          "index",
+          "main",
+          "floating",
+          "item",
+          "hint",
+          "history"
+        ] //需要忽略的组件名
       }
     ]
   }

@@ -9,7 +9,7 @@ import { useStore } from "vuex";
 
 let query = {
   page: 1,
-  size: 5
+  size: 20
 };
 
 // 数据是否在加载中
@@ -65,6 +65,19 @@ watch(
     resetQuery({
       page: 1,
       categoryId: currentCategory.id
+    });
+  }
+);
+
+/**
+ * 监听 searchText 变化
+ */
+watch(
+  () => store.getters.searchText,
+  (val) => {
+    resetQuery({
+      page: 1,
+      searchText: val
     });
   }
 );

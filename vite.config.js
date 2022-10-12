@@ -28,6 +28,9 @@ export default defineConfig(() => {
           target: env.VITE_BASE_URL,
           changeOrigin: true
         }
+      },
+      headers: {
+        "Access-Control-Allow-Origin": "*"
       }
     }
   };

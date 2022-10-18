@@ -2,8 +2,9 @@
 import {} from "vue";
 import Button from "@/libs/Button/index.vue";
 import { randomRGB } from "@/utils/color";
+import { saveAs } from "file-saver";
 
-defineProps({
+const props = defineProps({
   data: {
     type: Object,
     required: true
@@ -12,6 +13,13 @@ defineProps({
     type: Number
   }
 });
+
+/**
+ * 下载按钮点击事件
+ */
+const onDownload = () => {
+  saveAs(props.data?.photoDownLink);
+};
 </script>
 
 <template>
@@ -49,6 +57,7 @@ defineProps({
           icon="download"
           size="small"
           iconClass="fill-zinc-900 dark:fill-zinc-200"
+          @click="onDownload"
         >
           下载
         </Button>

@@ -1,23 +1,46 @@
 <script setup>
-import {} from "vue";
-import SvgIcon from "../../../libs/SvgIcon/index.vue";
-import Popover from "../../../libs/Popover/index.vue";
+import { onMounted } from "vue";
+import SvgIcon from "@/libs/SvgIcon/index.vue";
+import Popover from "@/libs/Popover/index.vue";
+import Driver from "driver.js";
+import "driver.js/dist/driver.min.css";
+import steps from "./steps";
+
+// 初始化
+let driver = null;
+onMounted(() => {
+  driver = new Driver({
+    allowClose: false,
+    closeBtnText: "关闭",
+    nextBtnText: "下一步",
+    prevBtnText: "上一步"
+  });
+});
+
+/**
+ * 开始引导
+ */
+const onGuideClick = () => {
+  driver.defineSteps(steps);
+  driver.start();
+};
 </script>
 
 <template>
   <div class="fixed bottom-10 right-2">
     <!-- 引导 -->
     <div
-      class="w-4 h-4 mb-1 bg-white dark:bg-zinc-900 border dark:border-0 dark:border-zinc-200 rounded-full flex justify-center items-center cursor-pointer duration-200 hover:shadow-lg"
+      class="guide-start w-4 h-4 mb-1 bg-white dark:bg-zinc-900 border dark:border-0 dark:border-zinc-200 rounded-full flex justify-center items-center cursor-pointer duration-200 hover:shadow-lg"
     >
       <SvgIcon
         name="guide"
         class="w-2 h-2"
         fillClass="fill-zinc-900 dark:fill-zinc-200 group-hover:fill-main"
+        @click="onGuideClick"
       />
     </div>
     <!-- 反馈 -->
-    <Popover class="flex items-center" placement="top-left">
+    <Popover class="guide-feedback flex items-center" placement="top-left">
       <template #reference>
         <div
           class="w-4 h-4 mb-1 bg-white dark:bg-zinc-900 border dark:border-0 dark:border-zinc-200 rounded-full flex justify-center items-center cursor-pointer duration-200 hover:shadow-lg"
@@ -46,4 +69,9 @@ import Popover from "../../../libs/Popover/index.vue";
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.driver-fix-stacking {
+  position: fixed;
+  z-index: 100004 !important;
+}
+</style>

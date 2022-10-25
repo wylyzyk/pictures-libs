@@ -43,7 +43,7 @@ const svgIconName = computed(() => {
       <SvgIcon
         fillClass="fill-zinc-900 dark:fill-zinc-300"
         :name="svgIconName"
-        class="w-4 h-4 p-1 cursor-pointer rounded-sm duration-200 outline-none hover:bg-zinc-100/60 dark:hover:bg-zinc-900"
+        class="guide-theme w-4 h-4 p-1 cursor-pointer rounded-sm duration-200 outline-none hover:bg-zinc-100/60 dark:hover:bg-zinc-900"
       />
     </template>
     <div

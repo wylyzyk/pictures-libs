@@ -1,51 +1,20 @@
 module.exports = {
-  root: true,
-
+  extends: ["alloy", "alloy/vue"],
   env: {
-    node: true
+    // 你的环境变量（包含多个预定义的全局变量）
+    //
+    // browser: true,
+    // node: true,
+    // mocha: true,
+    // jest: true,
+    // jquery: true
   },
-
-  parser: "vue-eslint-parser",
-
-  parserOptions: {
-    parser: "babel-eslint"
+  globals: {
+    // 你的全局变量（设置为 false 表示它不允许被重新赋值）
+    //
+    // myGlobal: false
   },
-
-  extends: [
-    "plugin:vue/vue3-recommended",
-    "prettier",
-    "plugin:prettier/recommended"
-  ],
-
-  parserOptions: {
-    parserOptions: {
-      ecmaVersion: 6,
-      sourceType: "module",
-      ecmaFeatures: {
-        modules: true
-      },
-      requireConfigFile: false,
-      parser: "@babel/eslint-parser"
-    }
-  },
-
   rules: {
-    "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
-    "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
-    "space-before-function-paren": "off",
-    "vue/multi-word-component-names": [
-      "error",
-      {
-        ignores: [
-          "theme",
-          "index",
-          "main",
-          "floating",
-          "item",
-          "hint",
-          "history"
-        ] //需要忽略的组件名
-      }
-    ]
+    // 自定义你的规则
   }
 };

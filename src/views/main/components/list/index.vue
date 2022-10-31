@@ -6,6 +6,8 @@ import WaterFall from "@/libs/WaterFall/index.vue";
 import { isMobileTerminal } from "@/utils/flexible.js";
 import Infinite from "@/libs/Infinite/index.vue";
 import { useStore } from "vuex";
+import Pins from "@/views/pins/components/pins.vue";
+import gsap from "gsap";
 
 let query = {
   page: 1,
@@ -81,15 +83,60 @@ watch(
     });
   }
 );
+
+// 控制pins展示
+const isVisiblePins = ref(false);
+// 当前选中的pins属性
+const currentPins = ref({});
+
+/**
+ * 进入 pins
+ */
+const onToPins = (item) => {
+  console.log(item);
+  // 修改浏览器的url
+  history.pushState({}, null, `/pins/${item.id}`);
+  isVisiblePins.value = true;
+
+  currentPins.value = item;
+};
+
+const beforeEnter = (el) => {
+  gsap.set(el, {
+    scaleX: 0,
+    scaleY: 0,
+    transformOrigin: "0 0",
+    translateX: currentPins.value.location?.translateX,
+    translateY: currentPins.value.location?.translateY,
+    opacity: 0
+  });
+};
+const enter = (el, done) => {
+  gsap.to(el, {
+    duration: 0.3,
+    scaleX: 1,
+    scaleY: 1,
+    translateX: 0,
+    translateY: 0,
+    opacity: 1,
+    onComplete: done
+  });
+};
+const leave = (el) => {
+  gsap.to(el, {
+    duration: 0.3,
+    scaleX: 0,
+    scaleY: 0,
+    opacity: 0,
+    translateX: currentPins.value.location?.translateX,
+    translateY: currentPins.value.location?.translateY
+  });
+};
 </script>
 
 <template>
   <div>
-    <Infinite
-      v-model="loading"
-      :isFinished="isFinished"
-      @onLoad="getPexlesData"
-    >
+    <Infinite v-model="loading" :isFinished="isFinished" @onLoad="getPexlesData">
       <WaterFall
         class="px-1 w-full"
         :data="pexelsList"
@@ -98,11 +145,14 @@ watch(
         :picturePreReading="false"
       >
         <template #default="{ item, width }">
-          <Item :data="item" :width="width" />
+          <Item :data="item" :width="width" @click="onToPins" />
         </template>
       </WaterFall>
     </Infinite>
+
+    <!-- 详情内容展示 -->
+    <Transition :css="false" @before-enter="beforeEnter" @enter="enter" @leave="leave">
+      <Pins v-if="isVisiblePins" :id="currentPins.id" />
+    </Transition>
   </div>
 </template>
-
-<style lang="scss" scoped></style>

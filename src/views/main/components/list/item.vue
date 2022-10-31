@@ -1,9 +1,9 @@
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import Button from "@/libs/Button/index.vue";
 import { randomRGB } from "@/utils/color";
 import { saveAs } from "file-saver";
-import { useFullscreen } from "@vueuse/core";
+import { useElementBounding, useFullscreen } from "@vueuse/core";
 
 const props = defineProps({
   data: {
@@ -14,6 +14,8 @@ const props = defineProps({
     type: Number
   }
 });
+
+const emits = defineEmits(["click"]);
 
 /**
  * 下载按钮点击事件
@@ -27,6 +29,32 @@ const onDownload = () => {
  */
 const imgTarget = ref(null);
 const { enter: onImgFullScreen } = useFullscreen(imgTarget);
+
+/**
+ * pins跳转记录
+ */
+const {
+  x: imgContainerX,
+  y: imgContainerY,
+  width: imgContainerWidth,
+  height: imgContainerHeight
+} = useElementBounding(imgTarget);
+const imgContainerCenter = computed(() => {
+  return {
+    translateX: parseInt(imgContainerX.value + imgContainerWidth.value / 2, 10),
+    translateY: parseInt(imgContainerY.value + imgContainerHeight.value / 2, 10)
+  };
+});
+
+/**
+ * 进入详情
+ */
+const onToPinsClick = () => {
+  emits("click", {
+    id: props.data.id,
+    location: imgContainerCenter.value
+  });
+};
 </script>
 
 <template>
@@ -34,6 +62,7 @@ const { enter: onImgFullScreen } = useFullscreen(imgTarget);
     <div
       class="relative w-full rounded cursor-zoom-in group"
       :style="{ backgroundColor: randomRGB() }"
+      @click="onToPinsClick"
     >
       <!-- image -->
       <img
@@ -87,15 +116,8 @@ const { enter: onImgFullScreen } = useFullscreen(imgTarget);
     </p>
     <!-- author info -->
     <div class="flex items-center mt-1 px-1">
-      <img
-        v-lazy
-        class="h-2 w-2 rounded-full"
-        :src="data.avatar"
-        alt="author"
-      />
+      <img v-lazy class="h-2 w-2 rounded-full" :src="data.avatar" alt="author" />
       <span class="text-sm text-zinc-300 ml-1">{{ data.author }}</span>
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped></style>

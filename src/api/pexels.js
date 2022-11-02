@@ -27,3 +27,12 @@ export const getThemes = () => {
     url: "/pexels/themes"
   });
 };
+
+/**
+ * 获取指定图片数据
+ */
+export const getPexlesFromId = (id) => {
+  return request({
+    url: `/pexels/${id}`
+  });
+};

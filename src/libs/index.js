@@ -2,7 +2,7 @@ import { defineAsyncComponent } from "vue";
 export { confirm } from "./Confirm/index.js";
 
 export default {
-  install(app) {
+  install(App) {
     // app.component("SvgIcon", svgIcon);
     // app.component("PopUp", popup);
 
@@ -15,7 +15,7 @@ export default {
       // console.log(defineAsyncComponent(fn));
 
       // 3. 利用 app.component进行注册
-      app.component(componentName, defineAsyncComponent(fn));
+      App.component(componentName, defineAsyncComponent(fn));
     }
   }
 };

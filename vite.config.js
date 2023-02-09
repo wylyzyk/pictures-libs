@@ -13,13 +13,13 @@ export default defineConfig(() => {
       createSvgIconsPlugin({
         // 指定需要缓存的图标文件夹
         iconDirs: [path.resolve(process.cwd(), "src/assets/icons")],
-        // 指定symbolid
+        // 指定symbol id
         symbolId: "icon-[name]"
       })
     ],
     resolve: {
       alias: {
-        "@": path.join(__dirname, "/src")
+        "@": path.resolve(__dirname, "./src")
       }
     },
     server: {

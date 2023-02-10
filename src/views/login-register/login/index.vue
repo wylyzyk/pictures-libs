@@ -1,5 +1,9 @@
 <script setup>
-console.log("login");
+import { Form as VeeForm, Field as VeeField, ErrorMessage as VeeErrorMessage } from "vee-validate";
+import { validatePassword, validateUsername } from "../validate";
+
+// 表单校验 通过 后触发
+const onSubmit = () => {};
 </script>
 
 <template>
@@ -23,23 +27,27 @@ console.log("login");
     >
       <h3 class="hidden mb-2 font-semibold text-base text-main dark:text-zinc-300 xl:block">账号登录</h3>
       <!--form-->
-      <form>
+      <VeeForm @submit="onSubmit">
         <!-- username -->
-        <input
+        <VeeField
           class="dark:bg-zinc-800 dark:text-zinc-400 border-b-zinc-400 border-b w-full outline-0 pb-1 px-1 text-base focus:border-b-main dark:focus:border-b-zinc-200 xl:default:bg-zinc-900"
           type="text"
           name="username"
           placeholder="用户名"
           autocomplete="on"
+          :rules="validateUsername"
         />
+        <VeeErrorMessage class="text-sm text-red-600 block mt-0.5 text-left" name="username" />
         <!-- password -->
-        <input
+        <VeeField
           class="dark:bg-zinc-800 dark:text-zinc-400 border-b-zinc-400 border-b w-full outline-0 pb-1 px-1 text-base focus:border-b-main dark:focus:border-b-zinc-200 xl:default:bg-zinc-900"
           type="text"
           name="password"
           placeholder="密码"
           autocomplete="on"
+          :rules="validatePassword"
         />
+        <VeeErrorMessage class="text-sm text-red-600 block mt-0.5 text-left" name="password" />
         <!-- goto button -->
         <div class="pt-1 pb-3 leading-[0px] text-right">
           <a
@@ -50,8 +58,8 @@ console.log("login");
         </div>
 
         <!-- login button -->
-        <Button class="w-full dark:bg-zinc-900 xl:dark:bg-zinc-800">登录</Button>
-      </form>
+        <Button class="w-full dark:bg-zinc-900 xl:dark:bg-zinc-800" :isActiveAnim="false">登录</Button>
+      </VeeForm>
 
       <!-- third login -->
       <div class="flex justify-around mt-4">

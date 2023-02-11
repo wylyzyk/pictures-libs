@@ -45,6 +45,17 @@ export default {
       // 提示
       const call = data.vipLevel ? `尊贵的VIP用户${data.nickname}` : data.nickname;
       message("success", `欢迎回来 ${call}`, 6000);
+    },
+    /**
+     * 退出登录
+     */
+    async logout({ commit }) {
+      // 清空token
+      commit("setToken", "");
+      // 清空用户信息
+      commit("setUserInfo", {});
+      // 刷新页面
+      location.reload();
     }
   }
 };

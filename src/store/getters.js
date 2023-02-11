@@ -12,9 +12,7 @@ export default {
    * category选中项的下标
    */
   currentCategoryIndex: (state, getters) => {
-    return getters.categorys.findIndex(
-      (item) => item.id === getters.currentCategory.id
-    );
+    return getters.categorys.findIndex((item) => item.id === getters.currentCategory.id);
   },
   /**
    * 搜索历史
@@ -23,5 +21,13 @@ export default {
   /**
    * 搜索文本
    */
-  searchText: (state) => state.app.searchText
+  searchText: (state) => state.app.searchText,
+  /**
+   * token
+   */
+  token: (state) => state.user.token,
+  /**
+   * 用户信息
+   */
+  userInfo: (state) => state.user.userInfo
 };

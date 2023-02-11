@@ -31,7 +31,7 @@ const menuArr = [
  */
 const onToLogin = () => {
   router.push("/login");
-}
+};
 </script>
 
 <template>
@@ -39,7 +39,7 @@ const onToLogin = () => {
     <Popover class="flex items-center" placement="bottom-left">
       <template #reference>
         <div
-          v-if="false"
+          v-if="$store.getters.token"
           class="guide-mine relative flex items-center p-0.5 rounded-sm cursor-pointer duration-200 outline-none hover:bg-zinc-100 dark:hover:bg-zinc-900"
         >
           <img
@@ -49,7 +49,7 @@ const onToLogin = () => {
             alt="wylyzyk"
           />
           <SvgIcon name="down-arrow" class="h-1.5 w-1.5 ml-0.5" fillClass="fill-zinc-900 dark:fill-zinc-300" />
-          <SvgIcon name="vip" class="h-1.5 w-1.5 absolute right-[16px] bottom-0" />
+          <SvgIcon v-if="$store.getters.userInfo?.vipLevel" name="vip" class="h-1.5 w-1.5 absolute right-[16px] bottom-0" />
         </div>
         <div v-else>
           <Button class="guide-mine" icon="profile" iconColor="#fff" @click="onToLogin"></Button>
@@ -57,7 +57,7 @@ const onToLogin = () => {
       </template>
 
       <!--气泡-->
-      <div v-if="false" class="w-[140px] overflow-hidden">
+      <div v-if="$store.getters.token" class="w-[140px] overflow-hidden">
         <div
           v-for="item in menuArr"
           :key="item.id"
@@ -70,5 +70,3 @@ const onToLogin = () => {
     </Popover>
   </div>
 </template>
-
-<style lang="scss" scoped></style>

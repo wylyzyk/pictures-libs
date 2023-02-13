@@ -15,12 +15,12 @@ const props = defineProps({
   // type
   type: {
     type: String,
-    defualt: TYPE_TEXT,
+    default: TYPE_TEXT,
     validator(value) {
       const arr = [TYPE_TEXT, TYPE_TEXTAREA];
       const result = arr.includes(value);
       if (!result) {
-        throw Error(`type's value is ${arr.join("、")}`);
+        throw Error(`type's value is ${arr.join("、")}, and not ${value}`);
       }
       return result;
     }

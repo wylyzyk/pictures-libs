@@ -45,7 +45,9 @@ const onItemClick = (item) => {
     confirm("确定退出登录吗").then(() => {
       store.dispatch("user/logout");
     });
+    return;
   }
+  router.push(item.path);
 };
 </script>
 

@@ -30,3 +30,14 @@ export const getUserProfile = () => {
     url: "/user/profile"
   });
 };
+
+/**
+ * 修改用户信息
+ */
+export const puProfile = (data) => {
+  return request({
+    url: "/user/profile",
+    method: "PUT",
+    data
+  });
+};

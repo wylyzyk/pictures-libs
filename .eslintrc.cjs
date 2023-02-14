@@ -16,6 +16,7 @@ module.exports = {
   },
   rules: {
     // 自定义你的规则
-    "vue/no-duplicate-attributes": "off"
+    "vue/no-duplicate-attributes": "off",
+    "vue/v-on-event-hyphenation": "off"
   }
 };

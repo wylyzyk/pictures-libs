@@ -27,17 +27,20 @@ const onAvatarClick = () => {
 
 const onSelectImgHandler = () => {};
 
-const changeStoreUserInfo = (key, value) => {
-  console.log(value);
-  store.commit("user/setUserInfo", { ...store.getters.userInfo, [key]: value });
-};
+// const changeStoreUserInfo = (key, value) => {
+//   console.log(value);
+//   store.commit("user/setUserInfo", { ...store.getters.userInfo, [key]: value });
+// };
 
 const loading = ref(false);
+const userInfo = ref(store.getters.userInfo);
 const onChangedProfile = async () => {
   loading.value = true;
 
-  await puProfile(store.getters.userInfo);
+  await puProfile(userInfo.value);
   message("success", "用户信息修改成功");
+  // 同步 vuex 中的数据
+  store.commit("user/setUserInfo", userInfo.value);
 
   loading.value = false;
 };
@@ -86,50 +89,27 @@ const onChangedProfile = async () => {
           <span class="w-8 block mb-1 font-bold dark:text-zinc-300 xl:mb-0">用户名</span>
           <!-- modelValue -->
           <!-- update:modelValue -->
-          <CustomInput
-            :modelValue="$store.getters.userInfo.nickname"
-            class="w-full"
-            max="20"
-            @update:modelValue="changeStoreUserInfo('nickname', $event)"
-          />
+          <CustomInput v-model="userInfo.nickname" class="w-full" max="20" />
         </div>
         <!-- job -->
         <div class="py-1 xl:flex xl:item-center xl:my-1">
           <span class="w-8 block mb-1 font-bold dark:text-zinc-300 xl:mb-0">职位</span>
-          <CustomInput
-            :modelValue="$store.getters.userInfo.title"
-            class="w-full"
-            @update:modelValue="changeStoreUserInfo('title', $event)"
-          />
+          <CustomInput v-model="userInfo.title" class="w-full" />
         </div>
         <!-- company -->
         <div class="py-1 xl:flex xl:item-center xl:my-1">
           <span class="w-8 block mb-1 font-bold dark:text-zinc-300 xl:mb-0">公司</span>
-          <CustomInput
-            :modelValue="$store.getters.userInfo.company"
-            class="w-full"
-            @update:modelValue="changeStoreUserInfo('company', $event)"
-          />
+          <CustomInput v-model="userInfo.company" class="w-full" />
         </div>
         <!-- home page -->
         <div class="py-1 xl:flex xl:item-center xl:my-1">
           <span class="w-8 block mb-1 font-bold dark:text-zinc-300 xl:mb-0">个人主页</span>
-          <CustomInput
-            :modelValue="$store.getters.userInfo.homePage"
-            class="w-full"
-            @update:modelValue="changeStoreUserInfo('homePage', $event)"
-          />
+          <CustomInput v-model="userInfo.homePage" class="w-full" />
         </div>
         <!-- user introduce -->
         <div class="py-1 xl:flex xl:item-center xl:my-1">
           <span class="w-8 block mb-1 font-bold dark:text-zinc-300 xl:mb-0">个人主页</span>
-          <CustomInput
-            :modelValue="$store.getters.userInfo.introduction"
-            class="w-full"
-            type="textarea"
-            max="50"
-            @update:modelValue="changeStoreUserInfo('introduction', $event)"
-          />
+          <CustomInput v-model="userInfo.introduction" class="w-full" type="textarea" max="50" />
         </div>
 
         <!-- save modify -->

@@ -64,11 +64,7 @@ const close = () => {
   <div>
     <!--mask-->
     <Transition name="fade">
-      <div
-        v-if="isVisible"
-        class="w-screen h-screen bg-zinc-900/80 z-40 fixed top-0 left-0"
-        @click="close"
-      ></div>
+      <div v-if="isVisible" class="w-screen h-screen bg-zinc-900/80 z-40 fixed top-0 left-0" @click="close"></div>
     </Transition>
     <!--content-->
     <Transition name="up">
@@ -86,12 +82,8 @@ const close = () => {
         </div>
         <!--button-->
         <div class="flex justify-end">
-          <Button type="info" class="mr-2" @click="onCancelClick"
-            >{{ cancelText }}
-          </Button>
-          <Button type="primary" @click="onConfirmClick"
-            >{{ confirmText }}
-          </Button>
+          <Button type="info" class="mr-2" @click="onCancelClick">{{ cancelText }} </Button>
+          <Button type="primary" @click="onConfirmClick">{{ confirmText }} </Button>
         </div>
       </div>
     </Transition>

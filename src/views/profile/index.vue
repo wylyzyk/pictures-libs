@@ -6,6 +6,7 @@ import { isMobileTerminal } from "@/utils/flexible";
 import { confirm } from "@/libs";
 import { puProfile } from "@/api/sys";
 import { message } from "@/libs/Message";
+import ChangeAvatar from "./components/ChangeAvatar.vue";
 
 const store = useStore();
 const router = useRouter();
@@ -20,12 +21,23 @@ const onLogoutClick = () => {
   });
 };
 
+const isDialogVisible = ref(false);
+// 选中的图片
+const currentBlob = ref("");
+
 const inputFileTarget = ref(null);
 const onAvatarClick = () => {
   inputFileTarget.value.click();
 };
 
-const onSelectImgHandler = () => {};
+const onSelectImgHandler = () => {
+  // 获取选中的文件
+  const imgFile = inputFileTarget.value.files[0];
+  // 生成blob对象
+  currentBlob.value = URL.createObjectURL(imgFile);
+  // 展示dialog
+  isDialogVisible.value = true;
+};
 
 // const changeStoreUserInfo = (key, value) => {
 //   console.log(value);
@@ -131,5 +143,14 @@ const onChangedProfile = async () => {
         </Button>
       </div>
     </div>
+
+    <!-- pc -->
+    <Dialog v-if="!isMobileTerminal" v-model="isDialogVisible" title="裁剪头像">
+      <ChangeAvatar :blob="currentBlob" @close="isDialogVisible = false" />
+    </Dialog>
+
+    <Popup v-else v-model="isDialogVisible" :class="{ 'h-screen': isDialogVisible }">
+      <ChangeAvatar :blob="currentBlob" @close="isDialogVisible = false" />
+    </Popup>
   </div>
 </template>

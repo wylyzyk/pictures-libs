@@ -41,3 +41,12 @@ export const puProfile = (data) => {
     data
   });
 };
+
+/**
+ * 获取OSS 上传凭证
+ */
+export const getSts = () => {
+  return request({
+    url: "/user/sts"
+  });
+};

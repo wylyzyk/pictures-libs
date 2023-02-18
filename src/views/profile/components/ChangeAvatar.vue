@@ -27,12 +27,18 @@ import { onMounted, ref } from "vue";
 import "cropperjs/dist/cropper.css";
 import Cropper from "cropperjs";
 import { isMobileTerminal } from "@/utils/flexible";
+import { getOSSClient } from "@/utils/sts";
+import { useStore } from "vuex";
+import { message } from "@/libs/Message";
+import { puProfile } from "@/api/sys";
 
 defineProps({
   blob: { type: String, required: true }
 });
 
 const emits = defineEmits([EMITS_CLOSE]);
+
+const store = useStore();
 
 let cropper = null;
 const loading = ref(false);
@@ -41,11 +47,49 @@ const onConfirmClick = () => {
   // 拿到裁剪后的图片
   cropper.getCroppedCanvas().toBlob((blob) => {
     console.log(URL.createObjectURL(blob));
+    putObjectToOSS(blob);
   });
 };
 
+/**
+ * OSS 上传
+ */
+let ossClient = null;
+const putObjectToOSS = async (file) => {
+  if (!ossClient) {
+    ossClient = await getOSSClient();
+  }
+  try {
+    const fileTypeArr = file.type.split("/");
+    const filename = `${store.getters.userInfo.username}/${Date.now()}.${fileTypeArr[fileTypeArr.length - 1]}`;
+    // 1. 存放的路径 包含名称
+    // 2. file 文件
+    const res = await ossClient.put(`images/${filename}`, file);
+    onChangeProfile(res.url);
+  } catch (err) {
+    message("error", err);
+  }
+};
+
+/**
+ * 上传新头像到服务器
+ */
+const onChangeProfile = async (avatar) => {
+  // 更新本地数据
+  store.commit("user/setUserInfo", {
+    ...store.getters.userInfo,
+    avatar
+  });
+  // 更新服务器数据
+  await puProfile(store.getters.userInfo);
+  message("success", "用户头像修改成功");
+  // 关闭loading
+  loading.value = false;
+  // 关闭diglog
+  close();
+};
+
 const close = () => {
-  console.log('close')
   emits(EMITS_CLOSE);
 };
 

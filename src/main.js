@@ -11,7 +11,7 @@ import mLibs from "./libs";
 import mDirectives from "./directives";
 // 注册svgicons
 import "virtual:svg-icons-register";
-import "./premission ";
+import "./premission";
 
 useREM();
 useTheme();

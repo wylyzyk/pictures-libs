@@ -4,10 +4,13 @@ import { useRouter } from "vue-router";
 import Navbar from "@/libs/Navbar/index.vue";
 import { getPexlesFromId } from "@/api/pexels";
 import { isMobileTerminal } from "@/utils/flexible";
+import { useStore } from "vuex";
 
 const props = defineProps({
   id: { type: String, required: true }
 });
+
+const store = useStore();
 
 const pexelData = ref([]);
 const getPexelsData = async () => {
@@ -18,6 +21,7 @@ getPexelsData();
 
 const router = useRouter();
 const onPop = () => {
+  store.commit("app/changeRouterType", "back");
   router.back();
 };
 </script>

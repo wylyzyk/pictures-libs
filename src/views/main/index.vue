@@ -9,6 +9,7 @@ import { useRouter } from "vue-router";
 const store = useStore();
 const router = useRouter();
 const onMineClick = () => {
+  store.commit("app/changeRouterType", "push");
   if (store.getters.token) {
     router.push("/profile");
   } else {
@@ -30,7 +31,7 @@ const onMineClick = () => {
     <TriggerMenu v-if="isMobileTerminal" class="fixed bottom-6 left-0 right-0 m-auto w-[220px]">
       <TriggerMenuItem icon="home" iconClass="fill-zinc-900 dark:fill-zinc-200">首页</TriggerMenuItem>
       <TriggerMenuItem
-        icon="profile"
+        icon="vip"
         iconClass="fill-zinc-400 dark:fill-zinc-500"
         textClass="text-zinc-400 dark:text-zinc-500"
         @click="onVIPClick"

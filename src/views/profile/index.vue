@@ -12,6 +12,7 @@ const store = useStore();
 const router = useRouter();
 
 const onNavbarLeftClick = () => {
+  store.commit("app/changeRouterType", "back");
   router.back();
 };
 

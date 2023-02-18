@@ -1,3 +1,5 @@
+import { isMobileTerminal } from "@/utils/flexible";
+
 /**
  * 快捷访问
  */
@@ -29,5 +31,15 @@ export default {
   /**
    * 用户信息
    */
-  userInfo: (state) => state.user.userInfo
+  userInfo: (state) => state.user.userInfo,
+  /**
+   * 路由跳转方式
+   */
+  routerType: (state) => {
+    // pc 端没有跳转动画
+    if (!isMobileTerminal.value) {
+      return "none";
+    }
+    return state.app.routerType;
+  }
 };

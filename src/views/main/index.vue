@@ -1,10 +1,18 @@
+<script>
+export default {
+  // eslint-disable-next-line vue/component-definition-name-casing
+  name: "home"
+};
+</script>
+
 <script setup>
-import {} from "vue";
+import { onActivated, ref } from "vue";
 import Navigation from "./components/navigation/index.vue";
 import List from "./components/list/index.vue";
 import { isMobileTerminal } from "@/utils/flexible";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import { useScroll } from "@vueuse/core";
 
 const store = useStore();
 const router = useRouter();
@@ -16,10 +24,24 @@ const onMineClick = () => {
     router.push("/login");
   }
 };
+
+/**
+ * 记录滚动
+ */
+const containerTarget = ref(null);
+const { y: containerTargetScrollY } = useScroll(containerTarget);
+// 被缓存的组件再次可见会回调 onActived 方法
+onActivated(() => {
+  if (!containerTarget.value) {
+    return;
+  }
+  containerTarget.value.scrollTop = containerTargetScrollY.value;
+});
 </script>
 
 <template>
   <div
+    ref="containerTarget"
     class="h-full overflow-auto bg-white dark:bg-zinc-800 duration-500 scrollbar-thin scrollbar-thumb-transparent xl:scrollbar-thumb-zinc-200 xl:dark:scrollbar-thumb-zinc-900 scrollbar-track-transparent"
   >
     <Navigation />

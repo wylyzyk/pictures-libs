@@ -33,9 +33,24 @@ const props = defineProps({
 // 监听router的前置守卫
 const router = useRouter();
 const transitionName = ref("");
+// 虚拟任务栈数组, 表示栈操作
+const virtualTaskStack = ref([props.mainComponentName]);
 router.beforeEach((to, from) => {
   // 定义当前动画的名称
   transitionName.value = props.routerType;
+
+  if (props.routerType === ROUTER_TYPE_PUSH) {
+    // 入栈
+    virtualTaskStack.value.push(to.name);
+  } else if (props.routerType === ROUTER_TYPE_BACK) {
+    // 出栈
+    virtualTaskStack.value.pop();
+  }
+
+  // 进入首页, 默认清空栈
+  if (to.name === props.mainComponentName) {
+    clearTask();
+  }
 });
 
 const isAnimation = ref(false);
@@ -45,12 +60,19 @@ const onBeforeEnter = () => {
 const onAfterLeave = () => {
   isAnimation.value = false;
 };
+
+/**
+ * 清空栈
+ */
+const clearTask = () => {
+  virtualTaskStack.value = [props.mainComponentName];
+};
 </script>
 
 <template>
   <RouterView #default="{ Component }">
     <Transition :name="transitionName" @beforeEnter="onBeforeEnter" @afterLeave="onAfterLeave">
-      <KeepAlive>
+      <KeepAlive :include="virtualTaskStack">
         <Component
           :is="Component"
           :key="$route.fullPath"

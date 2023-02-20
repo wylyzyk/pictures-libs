@@ -1,5 +1,19 @@
 module.exports = {
   extends: ["alloy", "alloy/vue"],
+  parserOptions: {
+    // parser: {
+    //   js: "@babel/eslint-parser",
+    //   jsx: "@babel/eslint-parser"
+
+    //   // Leave the template parser unspecified, so that it could be determined by `<script lang="...">`
+    // },
+    parser: "@babel/eslint-parser",
+    babelOptions: {
+      parserOpts: {
+        plugins: ["jsx"]
+      }
+    }
+  },
   env: {
     // 你的环境变量（包含多个预定义的全局变量）
     //

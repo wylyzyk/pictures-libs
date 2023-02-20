@@ -2,7 +2,7 @@
 module.exports = {
   darkMode: "class",
   // 让tailwindcss 应用于当前目录下的index.html, 以及src下的任意目录的.vue以及.js文件
-  content: ["./index.html", "./src/**/*.{vue, js}"],
+  content: ["./index.html", "./src/**/*.{vue, jsx, js, ts, tsx}"],
   theme: {
     extend: {
       fontSize: {

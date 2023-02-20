@@ -82,11 +82,11 @@ const onShowPopup = () => {
         v-for="(item, index) in $store.getters.categorys"
         :key="item.id"
         :ref="setItemRef"
-        @click="onItemClick(item)"
-        class="shrink-0 px-1.5 py-0.5 z-10 duration-200 last:mr-4"
         :class="{
           'text-zinc-100': $store.getters.currentCategoryIndex === index
         }"
+        class="shrink-0 px-1.5 py-0.5 z-10 duration-200 last:mr-4"
+        @click="onItemClick(item)"
       >
         {{ item.name }}
       </li>

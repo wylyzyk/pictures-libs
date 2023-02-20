@@ -25,6 +25,11 @@ const onMineClick = () => {
   }
 };
 
+const onVIPClick = () => {
+  store.commit("app/changeRouterType", "push");
+  router.push("/member");
+};
+
 /**
  * 记录滚动
  */

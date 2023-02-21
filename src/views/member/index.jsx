@@ -4,6 +4,7 @@ import { isMobileTerminal } from "@/utils/flexible";
 import PayMenuItem from "./components/payMenuItem";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import PayMent from "./components/payment";
 
 const Member = defineComponent(() => {
   const vipPayListData = ref([]);
@@ -36,7 +37,7 @@ const Member = defineComponent(() => {
     <div class="h-full bg-zinc-200 dark:bg-zinc-800 duration-400 xl:pt-1">
       <div class="max-w-screen-lg mx-auto bg-white dark:bg-zinc-900 duration-400 xl:rounded-sm xl:border-zinc-200 xl:dark:border-zinc-600 xl:border-[1px] xl:px-4">
         {/* <!-- 移动端 navbar 处理 --> */}
-        {isMobileTerminal && (
+        {isMobileTerminal.value && (
           <Navbar clickLeft={onNavbarLeftClick} sticky={true}>
             精选会员
           </Navbar>
@@ -58,7 +59,7 @@ const Member = defineComponent(() => {
           </div>
           <p class="mt-1 text-sm text-zinc-500">{currentPayData.value.desc}</p>
           {/* <!-- 支付 --> */}
-          <CountDown time={1000 * 60} />
+          <PayMent class="mt-4" />
           {/* <payment-vue class="mt-4" payData={currentPayData} /> */}
         </div>
       </div>
